@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.QuizzQuestions;
-import com.example.demo.repository.QuizzQuestionsRepository;
+import com.example.demo.model.QuizzQuestion;
+import com.example.demo.repository.QuizzQuestionRepository;
+
+import com.example.demo.model.QuizzAnswer;
+import com.example.demo.repository.QuizzAnswerRepository;
 
 import java.lang.*;
 
@@ -29,7 +32,10 @@ import java.util.List;
 public class QuizzController {
 
     @Autowired
-    private QuizzQuestionsRepository repository;
+    private QuizzQuestionRepository quizzQuestionRepository;
+
+    @Autowired
+    private QuizzAnswerRepository quizzAnswersRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -62,11 +68,14 @@ public class QuizzController {
             Map<String, Object> answer = answers.get(i);
             System.out.println(answer);
 
+//            QuizzAnswer model = new QuizzQuestion((String) payload.get("question"));
+
+
         }
 
 
-        QuizzQuestions model = new QuizzQuestions((String) payload.get("question"));
-        this.repository.save(model);
+        QuizzQuestion model = new QuizzQuestion((String) payload.get("question"));
+        this.quizzAnswersRepository.save(model);
 
     }
 
