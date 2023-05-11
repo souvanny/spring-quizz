@@ -54,28 +54,37 @@ public class QuizzController {
         System.out.println(payload.getClass());
 //        QuizzRequest quizzRequest = this.objectMapper.readValue('{"question": "popi"}', QuizzRequest.class);
 //        System.out.println(quizzRequest);
+        System.out.println("question === ");
         System.out.println(payload.get("question"));
+        System.out.println(payload.get("typeChoice"));
         System.out.println(payload.get("question").getClass());
+        System.out.println(payload.get("typeChoice").getClass());
+        System.out.println("answers === ");
         System.out.println(payload.get("answers"));
         System.out.println(payload.get("answers").getClass());
 
         ArrayList<Map<String, Object>> answers = (ArrayList<Map<String, Object>>) payload.get("answers");
-//        System.out.println(answers.get(0));
-//        System.out.println(answers.get(1));
-//        System.out.println(answers.get(1).get("title"));
+
+        QuizzQuestion modelQ = new QuizzQuestion(Integer.parseInt((String) payload.get("typeChoice")), (String) payload.get("question"));
+        this.quizzQuestionRepository.save(modelQ);
+        this.quizzQuestionRepository.flush();
+        System.out.println("question last id");
+        long idQuestion = modelQ.getId();
+        System.out.println(idQuestion);
 
         for (int i = 0; i < answers.size(); i++) {
             Map<String, Object> answer = answers.get(i);
+            System.out.println("answer...");
             System.out.println(answer);
+            System.out.println(answer.get("isCorrect"));
 
-//            QuizzAnswer model = new QuizzQuestion((String) payload.get("question"));
-
+            QuizzAnswer modelA = new QuizzAnswer(idQuestion, i, (int) answer.get("isCorrect"), (String) answer.get("title"));
+            this.quizzAnswersRepository.save(modelA);
 
         }
 
 
-        QuizzQuestion model = new QuizzQuestion((String) payload.get("question"));
-        this.quizzAnswersRepository.save(model);
+
 
     }
 

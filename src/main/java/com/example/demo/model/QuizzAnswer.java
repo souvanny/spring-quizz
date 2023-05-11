@@ -3,7 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "quizz_questions")
+@Table(name = "quizz_answer")
 public class QuizzAnswer {
 
     @Id
@@ -26,6 +26,24 @@ public class QuizzAnswer {
         this.idQuestion = idQuestion;
     }
 
+    @Column(name = "rank")
+    private int rank;
+    public int getRank() {
+        return rank;
+    }
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    @Column(name = "is_correct")
+    private int isCorrect;
+    public int getIsCorrect() {
+        return isCorrect;
+    }
+    public void setIsCorrect(int isCorrect) {
+        this.isCorrect = isCorrect;
+    }
+
 
     @Column(name = "title")
     private String title;
@@ -41,8 +59,10 @@ public class QuizzAnswer {
 //        this.title = title;
 //    }
 
-    public QuizzAnswer(int idQuestion, String title) {
+    public QuizzAnswer(long idQuestion, int rank, int isCorrect, String title) {
         this.idQuestion = idQuestion;
+        this.rank = rank;
+        this.isCorrect = isCorrect;
         this.title = title;
     }
 
