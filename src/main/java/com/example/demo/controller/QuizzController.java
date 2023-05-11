@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.Map;
 import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.request.QuizzRequest;
 
@@ -52,13 +54,18 @@ public class QuizzController {
         System.out.println(payload.get("answers").getClass());
 
         ArrayList<Map<String, Object>> answers = (ArrayList<Map<String, Object>>) payload.get("answers");
-        System.out.println(answers.get(0));
-        System.out.println(answers.get(1));
-        System.out.println(answers.get(1).get("title"));
+//        System.out.println(answers.get(0));
+//        System.out.println(answers.get(1));
+//        System.out.println(answers.get(1).get("title"));
+
+        for (int i = 0; i < answers.size(); i++) {
+            Map<String, Object> answer = answers.get(i);
+            System.out.println(answer);
+
+        }
 
 
-
-        QuizzQuestions model = new QuizzQuestions("kkkkkkkkkkkk");
+        QuizzQuestions model = new QuizzQuestions((String) payload.get("question"));
         this.repository.save(model);
 
     }
