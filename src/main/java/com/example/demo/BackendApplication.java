@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.model.User;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import com.example.demo.repository.UserRepository;
+
+import java.util.Random;
 
 @SpringBootApplication
 @EnableJpaRepositories("com/example/demo/repository")
@@ -23,10 +26,15 @@ public class BackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.userRepository.save(new User("Loghann", "M.","test@test.com"));
-		this.userRepository.save(new User("Dayann", "D.","test1@test1.com"));
-		this.userRepository.save(new User("Simplet", "R.","test2@test2.com"));
-		this.userRepository.save(new User("Atchoum", "T.","test3@test3.com"));
+		Faker faker = new Faker();
+		for (int i = 0; i < 20; i++) {
+			String firstName = faker.name().firstName();
+			String lastName = faker.name().lastName();
+			String email = faker.internet().emailAddress();
+			User.Dance dance = User.Dance.values()[new Random().nextInt(User.Dance.values().length)];
+
+			this.userRepository.save(new User(firstName, lastName, email, dance));
+		}
 	}
 
 }
