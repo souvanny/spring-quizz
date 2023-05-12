@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,10 @@ public class UserController {
         return this.userRepository.findAll();
     }
 
+    @GetMapping("user/{id}")
+    public Optional<User> getUserById(@PathVariable Long id) {
+        return Optional.ofNullable(this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id : " + id)));}
+
     @GetMapping("usersByDance")
     public List<User> getUsersByDance(@RequestParam("dance") User.Dance dance) {
         return this.userRepository.findAllByDance(dance);
@@ -33,7 +38,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/user/{id}")
+    @PutMapping("user/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id : " + id));
 
@@ -42,5 +47,18 @@ public class UserController {
         existingUser.setLastName(user.getLastName());
         return userRepository.save(existingUser);
     }
+
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()) {
+            userRepository.deleteById(id);
+            return new ResponseEntity<>("User with id " + id + " has been delete.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User with id " + id + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 
 }
