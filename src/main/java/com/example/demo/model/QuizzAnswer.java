@@ -26,15 +26,6 @@ public class QuizzAnswer {
         this.idQuestion = idQuestion;
     }
 
-    @Column(name = "rank")
-    private int rank;
-    public int getRank() {
-        return rank;
-    }
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
     @Column(name = "is_correct")
     private int isCorrect;
     public int getIsCorrect() {
@@ -59,9 +50,8 @@ public class QuizzAnswer {
 //        this.title = title;
 //    }
 
-    public QuizzAnswer(long idQuestion, int rank, int isCorrect, String title) {
+    public QuizzAnswer(long idQuestion, int isCorrect, String title) {
         this.idQuestion = idQuestion;
-        this.rank = rank;
         this.isCorrect = isCorrect;
         this.title = title;
     }
