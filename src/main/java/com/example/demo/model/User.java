@@ -6,15 +6,6 @@ import jakarta.persistence.*;
 @Table(name = "users") // spécifie que la table associée à cette entité s'appelle "users"
 public class User {
 
-    public enum Dance {
-        SALSA,
-        ROCK,
-        TANGO,
-        VALSE,
-        BACHATA,
-        CHA_CHA_CHA,
-        MERENGUE
-    }
     @Id //spécifie que l'attribut 'id' est la clé primaire de l'entité
     @GeneratedValue(strategy = GenerationType.IDENTITY) // indique que la valeur de l'identification sera générée automatiquement par la base de donnée
     private long id;
@@ -59,22 +50,11 @@ public class User {
 
     private String email;
 
-    public Dance getDance() {
-        return dance;
-    }
 
-    public void setDance(Dance dance) {
-        this.dance = dance;
-    }
-
-    @Enumerated(EnumType.STRING)
-    private Dance dance;
-
-    public User(String firstName, String lastName, String email, Dance dance) {
+    public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.dance = dance;
     }
 
     public User(){}

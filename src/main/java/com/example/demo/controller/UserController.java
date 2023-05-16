@@ -27,10 +27,6 @@ public class UserController {
     public Optional<User> getUserById(@PathVariable Long id) {
         return Optional.ofNullable(this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id : " + id)));}
 
-    @GetMapping("usersByDance")
-    public List<User> getUsersByDance(@RequestParam("dance") User.Dance dance) {
-        return this.userRepository.findAllByDance(dance);
-    }
 
     @PostMapping("user")
     public User createUser(@RequestBody User newUser) {
