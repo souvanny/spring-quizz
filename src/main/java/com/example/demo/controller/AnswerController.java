@@ -37,10 +37,6 @@ public class AnswerController {
     @GetMapping("answers/{id}")
     public ResponseEntity<Answer> getAnswersById(@PathVariable Long id) {
         Optional<Answer> answer = answerRepository.findById(id);
-      if(answer.isPresent()) {
-          return ResponseEntity.ok(answer.get());
-      } else {
-          return ResponseEntity.notFound().build();
-      }
+        return answer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
