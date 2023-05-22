@@ -29,6 +29,10 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "iduser", nullable = false)
+    private User user;
+
     @Column(name = "date_created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;

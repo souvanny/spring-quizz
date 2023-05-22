@@ -2,60 +2,85 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity //marque la classe comme étant une entité JPA, ce qui permet à l'ORM de Spring de la reconnaitre et de la traiter comme table de base de données
-@Table(name = "users") // spécifie que la table associée à cette entité s'appelle "users"
+@Table(name = "user") // spécifie que la table associée à cette entité s'appelle "users"
 public class User {
 
     @Id //spécifie que l'attribut 'id' est la clé primaire de l'entité
     @GeneratedValue(strategy = GenerationType.IDENTITY) // indique que la valeur de l'identification sera générée automatiquement par la base de donnée
     private long id;
 
-    @Column(name = "first_name") // Column spécifie que l'attribut est mappé à une colonne de la table "users". Ici, c'est firstName qui est mappé à une colonne appelé first_name
-    private String firstName;
+    @Column(nullable = false, unique = true)
+    private String username;
 
-    public long getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getLastName() {
-        return lastName;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getEmail() {
-        return email;
+    public String getProvider() {
+        return provider;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    private String email;
-
-
-    public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    public User(){}
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_question",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
+    private List<Question> associatedQuestions = new ArrayList<>();
+
+    public List<Question> getAssociatedQuestions() {
+        return associatedQuestions;
+    }
+
+    public void setAssociatedQuestions(List<Question> associatedQuestions) {
+        this.associatedQuestions = associatedQuestions;
+    }
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private boolean enabled;
+
+    @Column(nullable = false)
+    private String provider;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Question> questions = new ArrayList<>();
 }
