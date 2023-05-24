@@ -13,6 +13,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // indique que la valeur de l'identification sera générée automatiquement par la base de donnée
     private long id;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Column(nullable = false, unique = true)
     private String username;
 

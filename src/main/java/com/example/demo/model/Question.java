@@ -11,18 +11,13 @@ import java.util.List;
 public class Question {
 
 
-    public enum Type_choice {
-        UNIQUE,
-        MULTIPLE
-    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type_choice", columnDefinition = "TINYINT")
-    private Type_choice typeChoice;
+
 
     private String title;
 
@@ -32,6 +27,25 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iduser", nullable = false)
     private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Column(name = "type_choice", columnDefinition = "BOOLEAN")
+    private boolean multipleChoice;
+
+    public boolean isMultipleChoice() {
+        return multipleChoice;
+    }
+
+    public void setMultipleChoice(boolean multipleChoice) {
+        this.multipleChoice = multipleChoice;
+    }
 
     @Column(name = "date_created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,8 +57,8 @@ public class Question {
     public Question() {
     }
 
-    public Question(Type_choice typeChoice, String title, Date dateCreated, String hashtags) {
-        this.typeChoice = typeChoice;
+    public Question(boolean multipleChoice, String title, Date dateCreated, String hashtags) {
+        this.multipleChoice = multipleChoice;
         this.title = title;
         this.dateCreated = dateCreated;
         this.hashtags = hashtags;
@@ -62,14 +76,6 @@ public class Question {
         return id;
     }
 
-
-    public Type_choice getTypeChoice() {
-        return typeChoice;
-    }
-
-    public void setTypeChoice(Type_choice typeChoice) {
-        this.typeChoice = typeChoice;
-    }
 
     public String getTitle() {
         return title;

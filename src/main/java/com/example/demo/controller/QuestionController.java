@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Question;
+import com.example.demo.model.User;
 import com.example.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +29,17 @@ public class QuestionController {
     }
 
     @PostMapping("questions")
-    public Question createQuestion(@RequestBody Question newQuestion) {return questionRepository.save(newQuestion);}
+    public Question createQuestion(@RequestBody Question newQuestion) {
+            if (newQuestion.getUser() == null) {
+                // Gérer l'absence d'utilisateur associé à la question
+                // Ici, nous attribuons un utilisateur par défaut avec un ID de 0
+                User defaultUser = new User();
+                defaultUser.setId(0);
+                newQuestion.setUser(defaultUser);
+            }
+            return questionRepository.save(newQuestion);
+        }
+
 
     @DeleteMapping("question/{id}")
     public ResponseEntity<String> deleteQuestion(@PathVariable Long id) {
@@ -44,7 +56,7 @@ public class QuestionController {
     public ResponseEntity<Question> updateQuestion(@PathVariable Long questionId, @RequestBody Question questionDetails) {
         Question question = questionRepository.findById(questionId).orElseThrow(() -> new RuntimeException("Question non trouvé avec id : " + questionId));
 
-        question.setTypeChoice(questionDetails.getTypeChoice());
+        question.setMultipleChoice(questionDetails.isMultipleChoice());
         question.setTitle(questionDetails.getTitle());
         question.setHashtags(questionDetails.getHashtags());
 

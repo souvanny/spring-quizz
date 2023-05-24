@@ -32,7 +32,7 @@ public class QuestionGenerator {
 		for (int i = 1; i <= 10; i++){
 			Question question = new Question();
 			question.setTitle("Question " + i);
-			question.setTypeChoice(Question.Type_choice.UNIQUE);
+			question.setMultipleChoice(false);
 			question.setHashtags("Tag" + i);
 
 			List<Answer> answers = new ArrayList<>();
@@ -48,10 +48,10 @@ public class QuestionGenerator {
 		}
 
 		// Associer les questions aux utilisateurs
-		for(int i = 0; i < generatedUsers.size(); i++) {
-			User user = generatedUsers.get(i);
-			List<Question> associatedQuestions = generatedQuestions.subList(i * 2, (i * 2) + 2);
-			user.setAssociatedQuestions(associatedQuestions);
+		for (int i = 0; i < generatedQuestions.size(); i++) {
+			Question question = generatedQuestions.get(i);
+			User user = generatedUsers.get(i % generatedUsers.size()); // Récupérer un utilisateur en boucle
+			question.setUser(user);
 		}
 
 		UserRepository userRepository = context.getBean(UserRepository.class);
