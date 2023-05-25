@@ -12,6 +12,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // private Long question_id;
 
     private String title;
 
@@ -23,6 +24,14 @@ public class Answer {
         this.title = title;
     }
 
+    // public long getQuestionId() {
+    //     return question_id;
+    // }
+
+    // public void setQuestionId(long question_id) {
+    //     this.question_id = question_id;
+    // }
+
     public LocalDateTime getDate_created() {
         return date_created;
     }
@@ -31,13 +40,13 @@ public class Answer {
         this.date_created = date_created;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
+    // public Question getQuestion() {
+    //     return question;
+    // }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+    // public void setQuestion(Question question) {
+    //     this.question = question;
+    // }
 
     private LocalDateTime date_created;
 

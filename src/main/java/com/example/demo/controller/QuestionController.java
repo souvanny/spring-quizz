@@ -21,7 +21,13 @@ public class QuestionController {
     private QuestionRepository questionRepository;
 
     @GetMapping("questions")
-    public List<Question> getQuestions() {return this.questionRepository.findAll();}
+    public List<Question> getQuestions() {
+        System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+        System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+        System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+        System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+        return this.questionRepository.findAll();
+    }
 
     @GetMapping("questions/{id}")
     public Optional<Question> getQuestionsById(@PathVariable Long id) {

@@ -21,20 +21,20 @@ public class Question {
 
     private String title;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Answer> answers = new ArrayList<>();
+    // @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    // private List<Answer> answers = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "iduser", nullable = false)
-    private User user;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "iduser", nullable = false)
+    // private User user;
 
-    public User getUser() {
-        return user;
-    }
+    // public User getUser() {
+    //     return user;
+    // }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public void setUser(User user) {
+    //     this.user = user;
+    // }
 
     @Column(name = "type_choice", columnDefinition = "BOOLEAN")
     private boolean multipleChoice;
@@ -64,13 +64,13 @@ public class Question {
         this.hashtags = hashtags;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
-    }
+    // public List<Answer> getAnswers() {
+    //     return answers;
+    // }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
-    }
+    // public void setAnswers(List<Answer> answers) {
+    //     this.answers = answers;
+    // }
 
     public long getId() {
         return id;

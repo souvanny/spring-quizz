@@ -56,13 +56,13 @@ public class User {
         this.provider = provider;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
+    // public List<Question> getQuestions() {
+    //     return questions;
+    // }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
+    // public void setQuestions(List<Question> questions) {
+    //     this.questions = questions;
+    // }
 
     @ManyToMany
     @JoinTable(
@@ -89,6 +89,6 @@ public class User {
     @Column(nullable = false)
     private String provider;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Question> questions = new ArrayList<>();
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    // private List<Question> questions = new ArrayList<>();
 }
