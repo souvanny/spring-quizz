@@ -20,6 +20,7 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
+    // TODO faire une route qui affiche toutes les questions + username de chaque question
     @GetMapping("questions")
     public List<Question> getQuestions() {return this.questionRepository.findAll();}
 

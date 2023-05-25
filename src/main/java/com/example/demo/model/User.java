@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Entity //marque la classe comme étant une entité JPA, ce qui permet à l'ORM de Spring de la reconnaitre et de la traiter comme table de base de données
 @Table(name = "user") // spécifie que la table associée à cette entité s'appelle "users"
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class User {
 
     @Id //spécifie que l'attribut 'id' est la clé primaire de l'entité
@@ -89,6 +92,7 @@ public class User {
     @Column(nullable = false)
     private String provider;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 }

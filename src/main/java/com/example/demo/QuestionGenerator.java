@@ -23,11 +23,10 @@ public class QuestionGenerator {
 		ConfigurableApplicationContext context = SpringApplication.run(QuestionGenerator.class, args);
 
 		// Générer les utilisateurs
-		UserGenerator userGenerator = new UserGenerator();
-		List<User> generatedUsers = userGenerator.generateRandomUsers(5);
+		// List<User> generatedUsers = userGenerator.generateRandomUsers(5);
 
 		// Générer les questions et les réponses
-		List<Question> generatedQuestions = new ArrayList<>();
+		/*List<Question> generatedQuestions = new ArrayList<>();
 
 		for (int i = 1; i <= 10; i++){
 			Question question = new Question();
@@ -60,7 +59,7 @@ public class QuestionGenerator {
 		userRepository.saveAll(generatedUsers);
 		questionRepository.saveAll(generatedQuestions);
 
-		context.close();
+		context.close();*/
 	}
 }
 
