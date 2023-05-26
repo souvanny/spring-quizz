@@ -66,12 +66,14 @@ public class Question {
     public Question() {
     }
 
-    public Question(boolean multipleChoice, String title, Date dateCreated, String hashtags) {
+    public Question(boolean multipleChoice, String title, Date dateCreated, String hashtags, boolean validateQuestion) {
         this.multipleChoice = multipleChoice;
         this.title = title;
         this.dateCreated = dateCreated;
         this.hashtags = hashtags;
+        this.validateQuestion = validateQuestion;
     }
+
 
     public List<Answer> getAnswers() {
         return answers;
