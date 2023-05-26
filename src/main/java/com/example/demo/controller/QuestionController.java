@@ -23,6 +23,7 @@ public class QuestionController {
 
     
     @GetMapping("questions")
+	@CrossOrigin(origins = "*")
     public List<Question> getQuestions() {return this.questionRepository.findAll();}
 
     @GetMapping("questions/{id}")
