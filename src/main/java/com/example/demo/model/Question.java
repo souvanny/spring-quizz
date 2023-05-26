@@ -18,7 +18,15 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    public boolean isValidateQuestion() {
+        return validateQuestion;
+    }
 
+    public void setValidateQuestion(boolean validateQuestion) {
+        this.validateQuestion = validateQuestion;
+    }
+
+    private boolean validateQuestion;
 
     private String title;
 
