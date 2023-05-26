@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.google.gson.Gson;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    // TODO faire une route qui affiche toutes les questions + username de chaque question
+    
     @GetMapping("questions")
     public List<Question> getQuestions() {return this.questionRepository.findAll();}
 

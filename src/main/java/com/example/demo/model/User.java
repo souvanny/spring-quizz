@@ -83,6 +83,7 @@ public class User {
         this.associatedQuestions = associatedQuestions;
     }
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
