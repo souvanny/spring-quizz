@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Answer;
 import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.example.demo.repository.QuestionRepository;
@@ -53,13 +54,33 @@ public class QuestionController {
         }
     }
 
-    @PutMapping("/questions/{id}")
-    public ResponseEntity<Question> updateQuestion(@PathVariable Long questionId, @RequestBody Question questionDetails) {
-        Question question = questionRepository.findById(questionId).orElseThrow(() -> new RuntimeException("Question non trouvé avec id : " + questionId));
+    @PutMapping("questions/{id}")
+    public ResponseEntity<Question> updateQuestion(@PathVariable Long id, @RequestBody Question questionDetails) {
+        Question question = questionRepository.findById(id).orElseThrow(() -> new RuntimeException("Question non trouvé avec id : " + id));
 
         question.setMultipleChoice(questionDetails.isMultipleChoice());
         question.setTitle(questionDetails.getTitle());
         question.setHashtags(questionDetails.getHashtags());
+
+        // Mettre à jour les réponses
+        List<Answer> existingAnswers = question.getAnswers();
+        List<Answer> updatedAnswers = questionDetails.getAnswers();
+
+        // Mettre à jour les réponses existantes
+        for (int i = 0; i < Math.min(existingAnswers.size(), updatedAnswers.size()); i++) {
+            Answer existingAnswer = existingAnswers.get(i);
+            Answer updatedAnswer = updatedAnswers.get(i);
+
+            existingAnswer.setTitle(updatedAnswer.getTitle());
+            // Mettre à jour les autres propriétés de la réponse, si nécessaire
+        }
+
+        // Ajouter les nouvelles réponses
+        for (int i = existingAnswers.size(); i < updatedAnswers.size(); i++) {
+            Answer newAnswer = updatedAnswers.get(i);
+            newAnswer.setQuestion(question);
+            existingAnswers.add(newAnswer);
+        }
 
         final Question updateQuestion = questionRepository.save(question);
         return ResponseEntity.ok(updateQuestion);
