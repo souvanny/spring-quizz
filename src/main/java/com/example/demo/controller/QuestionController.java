@@ -86,6 +86,18 @@ public class QuestionController {
         final Question updateQuestion = questionRepository.save(question);
         return ResponseEntity.ok(updateQuestion);
     }
+
+    @GetMapping("questions/user/{userId}")
+    public ResponseEntity<List<Question>> getQuestionsByUser(@PathVariable Long userId) {
+        List<Question> questions = questionRepository.findByUserId(userId);
+
+        // Vérification si les questions ont été trouvées
+        if(!questions.isEmpty()) {
+            return ResponseEntity.ok(questions);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
 }
 
 
