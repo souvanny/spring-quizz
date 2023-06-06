@@ -24,6 +24,16 @@ public class Answer {
         this.id = id;
     }
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Question question;
+
+
+    @Column(name = "is_correct")
+    private boolean is_correct;
     private String title;
 
     public String getTitle() {
@@ -52,11 +62,6 @@ public class Answer {
 
     private LocalDateTime date_created;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Question question;
 
 
 }

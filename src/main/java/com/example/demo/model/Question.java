@@ -11,9 +11,6 @@ import java.util.List;
 @Table(name = "question")
 public class Question {
 
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,10 +23,13 @@ public class Question {
         this.validateQuestion = validateQuestion;
     }
 
+    @Column(name = "is_validate")
     private boolean validateQuestion;
 
     private String title;
 
+    @JsonManagedReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
@@ -45,17 +45,7 @@ public class Question {
         this.user = user;
     }
 
-    @Column(name = "type_choice", columnDefinition = "BOOLEAN")
-    private boolean multipleChoice;
-
-    public boolean isMultipleChoice() {
-        return multipleChoice;
-    }
-
-    public void setMultipleChoice(boolean multipleChoice) {
-        this.multipleChoice = multipleChoice;
-    }
-
+    @JsonIgnore
     @Column(name = "date_created", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
@@ -66,8 +56,7 @@ public class Question {
     public Question() {
     }
 
-    public Question(boolean multipleChoice, String title, Date dateCreated, String hashtags, boolean validateQuestion) {
-        this.multipleChoice = multipleChoice;
+    public Question(String title, Date dateCreated, String hashtags, boolean validateQuestion) {
         this.title = title;
         this.dateCreated = dateCreated;
         this.hashtags = hashtags;

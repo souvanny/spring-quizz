@@ -40,6 +40,12 @@ public class QuestionController {
                 defaultUser.setId(0);
                 newQuestion.setUser(defaultUser);
             }
+
+            List<Answer> answers = newQuestion.getAnswers();
+
+            for(Answer answer : answers) {
+                answer.setQuestion(newQuestion);
+            }
             return questionRepository.save(newQuestion);
         }
 
@@ -59,7 +65,7 @@ public class QuestionController {
     public ResponseEntity<Question> updateQuestion(@PathVariable Long id, @RequestBody Question questionDetails) {
         Question question = questionRepository.findById(id).orElseThrow(() -> new RuntimeException("Question non trouvé avec id : " + id));
 
-        question.setMultipleChoice(questionDetails.isMultipleChoice());
+        question.setValidateQuestion(questionDetails.isValidateQuestion());
         question.setTitle(questionDetails.getTitle());
         question.setHashtags(questionDetails.getHashtags());
 
