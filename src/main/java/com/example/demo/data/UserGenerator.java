@@ -22,7 +22,7 @@ public class UserGenerator {
         userRepository.saveAll(users);
     }
 
-    public List<User> generateRandomUsers(int count) {
+    public static List<User> generateRandomUsers(int count) {
         List<User> users = new ArrayList<>();
         Faker faker = new Faker();
 

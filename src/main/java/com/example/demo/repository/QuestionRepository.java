@@ -13,4 +13,6 @@ public interface QuestionRepository extends JpaRepository <Question, Long> {
     Optional<Question> findById(Long id);
 
     List<Question> findByUserId(Long userId);
+
+    List<Question> findByValidateQuestion(boolean validateQuestion);
 }

@@ -23,15 +23,14 @@ public class QuestionGenerator {
 		ConfigurableApplicationContext context = SpringApplication.run(QuestionGenerator.class, args);
 
 		// Générer les utilisateurs
-		// List<User> generatedUsers = userGenerator.generateRandomUsers(5);
+		//List<User> generatedUsers = UserGenerator.generateRandomUsers(5);
 
 		// Générer les questions et les réponses
-		/*List<Question> generatedQuestions = new ArrayList<>();
+		//List<Question> generatedQuestions = new ArrayList<>();
 
-		for (int i = 1; i <= 10; i++){
+		/*for (int i = 1; i <= 10; i++){
 			Question question = new Question();
 			question.setTitle("Question " + i);
-			question.setMultipleChoice(false);
 			question.setHashtags("Tag" + i);
 
 			List<Answer> answers = new ArrayList<>();
@@ -44,10 +43,10 @@ public class QuestionGenerator {
 			}
 				question.setAnswers(answers);
 				generatedQuestions.add(question);
-		}
+		}*/
 
 		// Associer les questions aux utilisateurs
-		for (int i = 0; i < generatedQuestions.size(); i++) {
+		/*for (int i = 0; i < generatedQuestions.size(); i++) {
 			Question question = generatedQuestions.get(i);
 			User user = generatedUsers.get(i % generatedUsers.size()); // Récupérer un utilisateur en boucle
 			question.setUser(user);
@@ -61,6 +60,6 @@ public class QuestionGenerator {
 
 		context.close();*/
 	}
-}
+	}
 
 

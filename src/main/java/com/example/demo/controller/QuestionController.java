@@ -31,6 +31,11 @@ public class QuestionController {
         return Optional.ofNullable(this.questionRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id : " + id)));
     }
 
+    @GetMapping("questions/validate/{validateQuestion}")
+    public List<Question> getQuestionByValidateQuestion(@PathVariable boolean validateQuestion) {
+        return questionRepository.findByValidateQuestion(validateQuestion);
+    }
+
     @PostMapping("questions")
     public Question createQuestion(@RequestBody Question newQuestion) {
             if (newQuestion.getUser() == null) {
@@ -79,6 +84,7 @@ public class QuestionController {
             Answer updatedAnswer = updatedAnswers.get(i);
 
             existingAnswer.setTitle(updatedAnswer.getTitle());
+            existingAnswer.set_correct(updatedAnswer.is_correct());
             // Mettre à jour les autres propriétés de la réponse, si nécessaire
         }
 

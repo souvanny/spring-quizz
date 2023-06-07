@@ -5,9 +5,14 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "answer")
 public class Answer {
@@ -16,15 +21,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -32,36 +29,18 @@ public class Answer {
     private Question question;
 
 
-    @Column(name = "is_correct")
+    @Column(name = "is_correct", nullable = false)
     private boolean is_correct;
+
     private String title;
 
-    public String getTitle() {
-        return title;
+    @JsonIgnore
+    @Column(name = "date_created", columnDefinition = "DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_created;
+
+    @PrePersist
+    protected void onCreate(){
+        date_created = new Date();
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDateTime getDate_created() {
-        return date_created;
-    }
-
-    public void setDate_created(LocalDateTime date_created) {
-        this.date_created = date_created;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    private LocalDateTime date_created;
-
-
-
 }
